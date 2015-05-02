@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import business.BLException;
-import dto.RencontreDto;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,24 +23,37 @@ public class FrontController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+    {
+        
         String cible = request.getParameter("cible");
         String page;
-        if (request.getParameter("cible") != null) {
-            if (request.getParameter("cible").equals("resultat")) {
+        
+        if (cible != null) 
+        {
+            
+            if (cible.equals("resultat")) 
+            {
                 page = visuResultat(request, response);
-
-            } else {
+            } 
+            else 
+            {
                 if (request.getParameter("cible").equals("identification")) {
                     page = ident(request, response);
-                }else{
+                }
+                else
+                {
                     request.setAttribute("Cible", request.getParameter("cible"));
-                    page="WEB-INF/CulDeSac.jsp";
+                    page = "WEB-INF/CulDeSac.jsp";
                 }
             }
-        } else {
+            
+        } 
+        else
+        {
             page = "WEB-INF/Accueil.jsp";
         }
+        
         request.getRequestDispatcher(page).forward(request, response);
     }
 
@@ -71,22 +78,31 @@ public class FrontController extends HttpServlet {
      */
     private String visuResultat(HttpServletRequest request, HttpServletResponse response) {
         String page = "WEB-INF/liste.jsp";
-        if (request.getParameter("club") == null) {
+        
+        if (request.getParameter("club") == null)
+        {
             request.setAttribute("rc", null);
-        } else {
-            try {
+        } 
+        else 
+        {
+            
+            try 
+            {
                 Integer club = null, equipe = null, jour = null;
-                if (!request.getParameter("club").equals("")) {
+                if (!request.getParameter("club").equals("")) 
                     club = Integer.parseInt(request.getParameter("club"));
-                }
-                if (!request.getParameter("equipe").equals("")) {
+                
+                if (!request.getParameter("equipe").equals("")) 
                     equipe = Integer.parseInt(request.getParameter("equipe"));
-                }
-                if (!request.getParameter("jour").equals("")) {
+                
+                if (!request.getParameter("jour").equals("")) 
                     jour = Integer.parseInt(request.getParameter("jour"));
-                }
+                
                 request.setAttribute("rc", business.EncodageBL.getRencontres(club, equipe, jour));
-            } catch (BLException ex) {
+                
+            } 
+            catch (BLException ex) 
+            {
                 page = "WEB-INF/error.jsp";
                 request.setAttribute("msg", ex.getMessage());
             }

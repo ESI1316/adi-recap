@@ -38,7 +38,7 @@
 }
 
 
-input
+input, select
 {
     width: 315px;
     display: inline-block;

@@ -32,9 +32,21 @@
             </nav>
             <section id='search'>
                 <form id='form' action="FrontController">
-                    <label>No de club</label><input type="text" name="club" id='club'/><br/>
-                    <label>No d'équipe</label><input type="text" name="equipe" id='equipe'/><br/>
-                    <label>No de journée</label><input type="text" name="jour"/><br/>
+                    <label>No de club</label>
+                    <select name="club">
+                        
+                    </select>
+                    <br/>
+                    <label>No d'équipe</label>
+                    <select name="equipe">
+                        
+                    </select>
+                    <br/>
+                    <label>No de journée</label>
+                    <select name="jour">
+                        
+                    </select>
+                    <br/>
                     <input type="hidden" name="cible" value="resultat"/>
                     <input type="submit" id="submit"/>
                 </form>
