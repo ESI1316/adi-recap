@@ -1,0 +1,51 @@
+h2, p{
+	margin:0;
+	padding:15px;
+	color:#fff;
+}
+a{
+	display:block;
+	outline:none;
+	width:200px;
+	padding:0 15px 15px 15px;
+	color:#fff;
+}
+.dstruc{
+	display:block;
+	margin-top:14px;
+	text-align:center;
+}
+#astruc{
+	display:block;
+	width:170px;
+	padding:8px;
+	margin:auto;
+	background:#5a7fa9;
+	border-radius: 3px ;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px;
+	text-decoration:none;
+}
+#astruc:hover{background:#4a709b;}
+small a{
+	display:inline;
+}
+.asigne{
+	margin:auto;
+	padding:0;
+	width:auto;
+	color:#979797;
+}
+pre{
+	margin:0;
+		background:url(../images/back_source.gif);
+	margin:10px;
+	overflow:auto;
+	height:600px;
+}
+code{
+	padding:10px;
+}
+#codesource{
+
+}
