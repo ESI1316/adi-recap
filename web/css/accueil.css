@@ -23,12 +23,13 @@ header
 } 
 nav
 { 
-    margin-top: 50px;
+    margin-top: 25px;
     float:left; 
     width:300px; 
 } 
 section 
 { 
+    margin-top: 25px;
     margin-left:300px; 
     background-color:#a9bbd1; 
 } 
@@ -55,22 +56,28 @@ li
 {
     list-style-type: none;
     margin-top: 10px;
-    border: 2px solid black;
-    padding: 10px;
     text-align: center;
 }
 
-li:hover
+
+a:hover
 {
     background-color: white;
-    cursor: pointer;
 }
 
 a
 {
+    border: 2px solid black;
     font-weight: bold;
-    padding-top: 5px;
     color: black;
     text-decoration: none;
+    padding: 20px;
+}
+
+#footer-note
+{
+    color: black;
+    font-weight: bold;
+    text-align:center;
 }
 

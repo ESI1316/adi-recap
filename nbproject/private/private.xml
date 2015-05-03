@@ -5,13 +5,15 @@
         <group>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/js/autoload.js</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/WEB-INF/liste.jsp</file>
+            <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/css/ident.css</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/src/java/servlet/FrontController.java</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/WEB-INF/ident.jsp</file>
+            <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/WEB-INF/footer.jsp</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/src/java/servlet/UpdateServlet.java</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/css/form.css</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/css/colorbox.css</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/css/gabarits.css</file>
-            <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/WEB-INF/CulDeSac.jsp</file>
+            <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/WEB-INF/encodage.jsp</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/WEB-INF/Accueil.jsp</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/js/verification.js</file>
             <file>file:/home/zyn/Documents/Laboratoires/ADI/adi-recap/web/css/accueil.css</file>

@@ -24,6 +24,6 @@
                 <p>${requestScope.msg}</p>
             </section>
         </div>
-        
+        <%@ include file="/WEB-INF/footer.jsp" %>
     </body>
 </html>

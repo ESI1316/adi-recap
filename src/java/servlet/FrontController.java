@@ -28,6 +28,7 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException 
     {
         
+        
         String cible = request.getParameter("cible");
         String page;
         
@@ -39,8 +40,17 @@ public class FrontController extends HttpServlet {
             } 
             else 
             {
-                if (cible.equals("identification")) {
+                if (cible.equals("connexion")) {
                     page = ident(request, response);
+                }
+                else if (cible.equals("deconnexion"))
+                {
+                    page = "WEB-INF/ident.jsp";
+                    request.getSession().removeAttribute("connected");
+                }
+                else if (cible.equals("encodage"))
+                {
+                    page = encodage(request, response);
                 }
                 else
                 {
@@ -57,6 +67,12 @@ public class FrontController extends HttpServlet {
         
         request.getRequestDispatcher(page).forward(request, response);
     }
+    
+    private String encodage(HttpServletRequest request, HttpServletResponse response)
+    {
+        
+        return "WEB-INF/encodage.jsp";
+    }
 
     /**
      * gestion d'une demande d'identification d'un secrétaire de club
@@ -65,7 +81,8 @@ public class FrontController extends HttpServlet {
      * @param response
      * @return
      */
-    private String ident(HttpServletRequest request, HttpServletResponse response) {
+    private String ident(HttpServletRequest request, HttpServletResponse response) 
+    {
         
         String clubStr = request.getParameter("club");
         String passwd  = request.getParameter("password");
@@ -77,7 +94,8 @@ public class FrontController extends HttpServlet {
                     business.EncodageBL.identification(Integer.parseInt(clubStr), passwd);
                 else
                     throw new BLException("Identifiants invalides");
-
+                
+                request.getSession().setAttribute("connected", clubStr);
             } catch (BLException ex) {
                 request.setAttribute("InvalidIdent", ex.getMessage());
             }

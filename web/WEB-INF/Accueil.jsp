@@ -33,18 +33,6 @@
 
             </section>
         </div>
-        <footer>
-             <p>blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
-                blablablablablablablablablablablabla
-                blablablablablablav
-                blablabla
-                blablabla
-                blablabla
-                vblablablablablablablablablablablablablablablablablablablablabla
-                blablablablablablablablablablablabla
-                bla</p>
-                
-            
-        </footer>
+        <%@ include file="/WEB-INF/footer.jsp" %>
     </body>
 </html>

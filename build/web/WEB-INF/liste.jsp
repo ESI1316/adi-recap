@@ -50,7 +50,7 @@
                     <br/>
                     
                     <input type="hidden" name="cible" value="resultat"/>
-                    <input type="submit" id="submit"/>
+                    <input value="Rechercher" type="submit" id="submit"/>
                 </form>
         
         
@@ -78,8 +78,8 @@
                             var scoreH = '${scoreH}';
                             var scoreV = '${scoreV}';
                             var journee = '${journee}';
-                            var home = $('<span class="home">' + equipeH + ' ' + scoreH + '</span>');
-                            var visiteur = $('<span class="visiteur">' + scoreV + ' ' + equipeV + '</span>');
+                            var home = $('<span class="home">' + equipeH + ' - ' + scoreH + '</span>');
+                            var visiteur = $('<span class="visiteur">' + scoreV + ' - ' + equipeV + '</span>');
                             
                             // La classe perdant n'est pas utilisée mais
                             // pourrait l'être dans le futur.
@@ -107,9 +107,6 @@
 
             </section>
         </div>
-        <footer>
-            
-            <p>BLABLABLA</p>
-        </footer>
+        <%@ include file="/WEB-INF/footer.jsp" %>
     </body>
 </html>
