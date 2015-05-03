@@ -14,16 +14,11 @@
     </head>
     <body>
         <header>
-            <h1>R&eacute;sultats du championnat XXXXXXX</h1>
+            <h1>Accueil</h1>
         </header>
         
         <div id="center">
-            <nav>
-                <ul>
-                    <li><a href="FrontController?cible=resultat">Liste</a></li>
-                    <li><a href="FrontController?cible=encodage">Encodage</a></li>
-                </ul>
-            </nav>
+            <%@ include file="/WEB-INF/navbar.jsp" %>
             <section>
                 <p>blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
                     blablablablablablablablablablablabla

@@ -15,7 +15,15 @@
         <link rel='stylesheet' type='text/css' href='css/accueil.css'>
     </head>
     <body>
-        <h1>Erreur ! Recherche invalide</h1>
-        <p>${requestScope.msg}</p>
+        
+        <header>Erreur ! Recherche invalide</header>
+        
+        <div id="center">
+            <%@ include file="/WEB-INF/navbar.jsp" %>
+            <section>
+                <p>${requestScope.msg}</p>
+            </section>
+        </div>
+        
     </body>
 </html>

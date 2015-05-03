@@ -9,23 +9,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CulDeSac</title>
+        <title>Encodage de r&eacute;sultats</title>
         <link rel='stylesheet' type='text/css' href='css/gabarits.css'>
         <link rel='stylesheet' type='text/css' href='css/colorbox.css'>
         <link rel='stylesheet' type='text/css' href='css/accueil.css'>
     </head>
     <body>
         <header>
-            <h1>Championnat XXXXXX: Résultats</h1>
+            <h1>Encodage de r&eacute;sultats</h1>
         </header>
         
         <div id="center">
-            <nav>
-                <ul>
-                    <li><a href="FrontController?cible=resultat">Liste</a></li>
-                    <li><a href="FrontController?cible=encodage">Encodage</a></li>
-                </ul>
-            </nav>
+            <%@ include file="/WEB-INF/navbar.jsp" %>
             <section>
                  <p>La cible <b style="color: red">${requestScope.Cible}</b> 
             a été demandée mais n'est pas gérée dans le FrontController </p>

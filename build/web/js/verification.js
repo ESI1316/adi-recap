@@ -1,7 +1,7 @@
 $(function()
 {
     
-    $('#form').validate({
+    $('#form-liste').validate({
    
         rules: {
             club: {
@@ -18,5 +18,22 @@ $(function()
             }
         }
 
+    });
+    
+    $('#form-ident').validate({
+        rules: {
+            club: { required: true },
+            password: { required: true }
+            
+        },
+        
+        messages: {
+            club: {
+                required: 'Identifiant obligatoire'
+            },
+            password: {
+                required: 'Mot de passe obligatoire'
+            }
+        }
     });
 });

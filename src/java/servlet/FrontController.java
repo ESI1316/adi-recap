@@ -37,7 +37,7 @@ public class FrontController extends HttpServlet {
             } 
             else 
             {
-                if (request.getParameter("cible").equals("identification")) {
+                if (cible.equals("identification")) {
                     page = ident(request, response);
                 }
                 else
@@ -64,8 +64,8 @@ public class FrontController extends HttpServlet {
      * @return
      */
     private String ident(HttpServletRequest request, HttpServletResponse response) {
-        String page = null; // ceci générera évidemment une erreur
-        return page;
+        
+        return "WEB-INF/ident.jsp";
     }
 
     /**

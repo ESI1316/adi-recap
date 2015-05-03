@@ -11,30 +11,26 @@
         <link rel='stylesheet' type='text/css' href='css/colorbox.css'>
         <link rel='stylesheet' type='text/css' href='css/accueil.css'>
         <link rel='stylesheet' type='text/css' href='css/liste.css'>
+        <link rel='stylesheet' type='text/css' href='css/form.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
         <script src="js/verification.js"></script>
         <script src="js/autoload.js"></script>
-        <title>Championnat XXXXXX: Résultats</title>
+        <title>Championnat XXXXXX: R&eacute;sultats</title>
     </head>
     <body>
       
         
         <header>
-            <h1>Championnat XXXXXX: Résultats</h1>
+            <h1>Championnat XXXXXX: R&eacute;sultats</h1>
         </header>
         
         <div id="center">
-            <nav>
-                <ul>
-                    <li><a href="FrontController?cible=resultat">Liste</a></li>
-                    <li><a href="FrontController?cible=encodage">Encodage</a></li>
-                </ul>
-            </nav>
+            <%@ include file="/WEB-INF/navbar.jsp" %>
             
             
             <section id='search'>
-                <form id='form' action="FrontController">
+                <form id='form-liste' action="FrontController">
                     
                     <label>No de club</label>
                     <select name="club" id="select-club"></select>
@@ -85,6 +81,8 @@
                             var home = $('<span class="home">' + equipeH + ' ' + scoreH + '</span>');
                             var visiteur = $('<span class="visiteur">' + scoreV + ' ' + equipeV + '</span>');
                             
+                            // La classe perdant n'est pas utilisée mais
+                            // pourrait l'être dans le futur.
                             if (scoreH > scoreV)
                             {
                                 home.addClass('vainqueur');
