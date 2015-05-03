@@ -2,6 +2,8 @@ package servlet;
 
 import business.BLException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,6 +67,22 @@ public class FrontController extends HttpServlet {
      */
     private String ident(HttpServletRequest request, HttpServletResponse response) {
         
+        String clubStr = request.getParameter("club");
+        String passwd  = request.getParameter("password");
+        
+        if (clubStr != null && passwd != null)
+        {
+            try {
+                if (!clubStr.isEmpty()  && !passwd.isEmpty())
+                    business.EncodageBL.identification(Integer.parseInt(clubStr), passwd);
+                else
+                    throw new BLException("Identifiants invalides");
+
+            } catch (BLException ex) {
+                request.setAttribute("InvalidIdent", ex.getMessage());
+            }
+            
+        }
         return "WEB-INF/ident.jsp";
     }
 

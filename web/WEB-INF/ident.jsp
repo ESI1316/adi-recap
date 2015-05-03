@@ -4,6 +4,7 @@
     Author     : zyn
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,9 @@
             
             
             <section id='ident'>
-                
+                <c:if test="${not empty requestScope.InvalidIdent}">
+                    <p id="invalid-ident">${requestScope.InvalidIdent}</p>
+                </c:if>
                 <form id='form-ident' action="FrontController">
                     <label>Identifiant du club : </label>
                     <input type="text" name="club" /><br/>
@@ -40,6 +43,10 @@
                     <input type="hidden" name="cible" value="identification"/>
                     <input type="submit" id="submit"/>
                 </form>
+                
+                
+                
+                
                 
 
             </section>

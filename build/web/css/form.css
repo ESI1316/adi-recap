@@ -42,3 +42,12 @@ label
     color: red;
     margin-right: 20px;
 }
+
+#invalid-ident
+{
+    color: red;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 220px;
+    margin-bottom: -50px;
+}

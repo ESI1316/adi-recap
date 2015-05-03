@@ -9,6 +9,7 @@ $(function()
                 {
                     return $('#select-equipe').val() !== null && $('#select-equipe').val() !== "";
                 }
+                
             }
         },
         
@@ -22,14 +23,16 @@ $(function()
     
     $('#form-ident').validate({
         rules: {
-            club: { required: true },
+            club: { required: true, number:true },
             password: { required: true }
+            
             
         },
         
         messages: {
             club: {
-                required: 'Identifiant obligatoire'
+                required: 'Identifiant obligatoire',
+                number: 'Identifiant est un nombre'
             },
             password: {
                 required: 'Mot de passe obligatoire'
