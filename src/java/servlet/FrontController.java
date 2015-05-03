@@ -31,7 +31,6 @@ public class FrontController extends HttpServlet {
         
         if (cible != null) 
         {
-            
             if (cible.equals("resultat")) 
             {
                 page = visuResultat(request, response);
@@ -78,25 +77,27 @@ public class FrontController extends HttpServlet {
      */
     private String visuResultat(HttpServletRequest request, HttpServletResponse response) {
         String page = "WEB-INF/liste.jsp";
-        
-        if (request.getParameter("club") == null)
+        String clubStr = request.getParameter("club");
+        String equipeStr = request.getParameter("equipe");
+        String jourStr = request.getParameter("jour");
+     
+        if (clubStr == null)
         {
             request.setAttribute("rc", null);
         } 
         else 
         {
-            
             try 
             {
                 Integer club = null, equipe = null, jour = null;
-                if (!request.getParameter("club").equals("")) 
-                    club = Integer.parseInt(request.getParameter("club"));
+                if (!clubStr.equals("")) 
+                    club = Integer.parseInt(clubStr);
                 
-                if (!request.getParameter("equipe").equals("")) 
-                    equipe = Integer.parseInt(request.getParameter("equipe"));
+                if (!equipeStr.equals("")) 
+                    equipe = Integer.parseInt(equipeStr);
                 
-                if (!request.getParameter("jour").equals("")) 
-                    jour = Integer.parseInt(request.getParameter("jour"));
+                if (!jourStr.equals("")) 
+                    jour = Integer.parseInt(jourStr);
                 
                 request.setAttribute("rc", business.EncodageBL.getRencontres(club, equipe, jour));
                 
@@ -108,7 +109,6 @@ public class FrontController extends HttpServlet {
             }
 
         }
-        
         
         return page;
     }

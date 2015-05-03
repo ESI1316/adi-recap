@@ -12,8 +12,9 @@
         <link rel='stylesheet' type='text/css' href='css/accueil.css'>
         <link rel='stylesheet' type='text/css' href='css/liste.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
         <script src="js/verification.js"></script>
+        <script src="js/autoload.js"></script>
         <title>Championnat XXXXXX: Résultats</title>
     </head>
     <body>
@@ -30,27 +31,33 @@
                     <li><a href="FrontController?cible=encodage">Encodage</a></li>
                 </ul>
             </nav>
+            
+            
             <section id='search'>
                 <form id='form' action="FrontController">
+                    
                     <label>No de club</label>
-                    <select name="club">
-                        
-                    </select>
+                    <select name="club" id="select-club"></select>
                     <br/>
+                    
                     <label>No d'équipe</label>
-                    <select name="equipe">
-                        
-                    </select>
+                    <select name="equipe" id="select-equipe"></select>
                     <br/>
+                    
                     <label>No de journée</label>
-                    <select name="jour">
-                        
+                    <select name="jour" id="select-jour">
+                        <option value="">Aucune journée choisie</option>
+                        <c:forEach begin="1" end="14" varStatus="i">
+                            <option value="${i.count}">${i.count}</option>
+                        </c:forEach>
                     </select>
                     <br/>
+                    
                     <input type="hidden" name="cible" value="resultat"/>
                     <input type="submit" id="submit"/>
                 </form>
-                
+        
+        
                 <c:set var="i" value ="${0}"></c:set>
                 <c:if test="${not empty requestScope.rc}">
                     <c:forEach var="rencontre" items="${requestScope.rc}">

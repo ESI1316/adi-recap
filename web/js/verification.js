@@ -7,7 +7,7 @@ $(function()
             club: {
                 required: function()
                 {
-                    return $('#equipe').val() !== null && $('#equipe').val() !== "";
+                    return $('#select-equipe').val() !== null && $('#select-equipe').val() !== "";
                 }
             }
         },
