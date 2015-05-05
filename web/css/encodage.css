@@ -1,0 +1,26 @@
+.rencontre
+{
+    font-weight: bold;
+    border : 2px solid black;
+    background-color: gray;
+    opacity: 0.5;
+    padding: 10px;
+    margin: 20px;
+}
+
+#add-rencontre, #add-all, #cancel
+{
+    width: 200px;
+    margin-top: 20px;
+    margin-left: 250px;
+}
+
+#add-all
+{
+    margin-left: 150px;
+}
+
+#cancel
+{
+    margin-left: 0;
+}

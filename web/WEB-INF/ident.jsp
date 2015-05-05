@@ -43,7 +43,7 @@
                         <label>Mot de passe :</label>
                         <input type="password" name="password" /><br/>
                         <input type="hidden" name="cible" value="connexion"/>
-                        <input value="Se connecter" type="submit" id="submit"/>
+                        <input value="Se connecter" type="submit" class="submit"/>
                     </form>
                 
                 </c:when>

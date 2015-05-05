@@ -1,17 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
-import business.BLException;
+import dto.EquipeDto;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 
 /**
  *
@@ -30,72 +27,40 @@ public class UpdateServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         
         String cible = request.getParameter("cible");
         
-        switch (cible) {
-            case "equipe":
-                updateEquipe(request, response);
-                break;
-            case "club":
-                updateClub(request, response);
-                break;
-        }
+        Collection<dto.EquipeDto> equipes = updateEquipe(request, response);
+        
+        JSONArray array = new JSONArray(equipes);
+        response.getWriter().write(array.toString());
     }
     
-    private void updateEquipe(HttpServletRequest request, HttpServletResponse response) 
+    private Collection<EquipeDto> updateEquipe(HttpServletRequest request, HttpServletResponse response) 
             throws IOException, ServletException
     {
         String clubStr = request.getParameter("club");
-        String options = "<option value='" 
-                                + "' >" + "Aucune équipe choisie" + "</option>";
-        
-        if (clubStr != null && !clubStr.equals("")) 
+        if (clubStr != null && !clubStr.isEmpty()) 
         {
             try 
             {
-                ArrayList<dto.EquipeDto> equipes = 
-                        (ArrayList) business.EncodageBL
-                                .getEquipeDeClub(Integer.parseInt(clubStr));
-                
-                options = equipes.stream().map((equipe) -> "<option value='" + equipe.getNum()
-                        + "' >" + equipe.toString() + "</option>").reduce(options, String::concat);
-                
+                return business.EncodageBL.getEquipeDeClub(Integer.parseInt(clubStr));
             }
             catch (business.BLException ex) 
             {
-                String page = "WEB-INF/error.jsp";
-                request.setAttribute("msg", ex.getMessage());
-                request.getRequestDispatcher(page).forward(request, response);
+                return new ArrayList<>();
             }
         }
-        
-        response.getWriter().write(options);
+        else
+        {
+            return new ArrayList<>();
+        }
     }
     
-    private void updateClub(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-    {
-        
-        String options = "<option value='" 
-                                + "' >" + "Aucun club choisi" +" </option>";
-        try 
-        {
-            ArrayList<dto.ClubDto> clubs = (ArrayList) business.EncodageBL.getAllClubs();
-            
-            options = clubs.stream().map((club) -> "<option value='" + club.getNum()
-                        + "' >" + club.toString() + "</option>").reduce(options, String::concat);
-            
-            response.getWriter().write(options);
-           
-        }
-        catch (BLException ex)
-        {
-            String page = "WEB-INF/error.jsp";
-            request.setAttribute("msg", ex.getMessage());
-            request.getRequestDispatcher(page).forward(request, response);
-        }
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -135,5 +100,6 @@ public class UpdateServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

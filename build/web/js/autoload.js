@@ -1,43 +1,30 @@
 $(function() {
     
     var $club = $('#select-club');
+    var $equipe = $('#select-equipe');
     
     function updateEquipe()
     {
+        $equipe.empty();
+        $equipe.append("<option value=''>Aucune équipe choisie</option>");
+        
         $.ajax({
-          url: '\UpdateServlet?cible=equipe',
+          url: 'UpdateServlet?cible=equipe',
           type: 'get',
+          dataType: 'json',
           data: {club:$club.val()},
-          success: function(equipes)
+          success: function(json)
           {
-              $('#select-equipe').html(equipes);
+              $.each(json, function(i, equipe) 
+              {
+                  $equipe.append("<option value='" + equipe.num
+                        + "' >" + equipe.club.nom + " (" + equipe.num +")" + "</option>");
+              });
           }
         });
     }
-   
-   function updateClub()
-   {
-        $.ajax({
-           url: '\UpdateServlet?cible=club',
-           type: 'get',
-           success: function(clubs)
-           {
-              $('#select-club').html(clubs);
-           }
-
-         });
-    }  
-   
     
     $('#select-club').on('change', updateEquipe);
-    
 
-    updateClub();
     updateEquipe();
-  
-    
-    
-   
-    
-   
 });

@@ -16,21 +16,28 @@ label
     display: inline-block;
 }
 
-#submit
+.submit
 {
     font-weight: bold;
     margin-left: 180px;
     margin-top: 20px;
 }
 
-#form-encodage input 
+.form-encodage 
+{
+    margin-left: 200px;
+    margin-bottom: 100px;
+}
+
+.form-encodage input 
 {
     width: 100px;
 }
 
-#form-encodage input[type=submit]
+.form-encodage input[type=submit]
 {
     width: 400px;
+    margin-left: 50px;
 }
 
 #form-ident, #form-liste
@@ -61,3 +68,4 @@ label
     margin-left: 220px;
     margin-bottom: -50px;
 }
+

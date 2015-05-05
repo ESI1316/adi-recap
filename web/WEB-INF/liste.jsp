@@ -28,12 +28,21 @@
         <div id="center">
             <%@ include file="/WEB-INF/navbar.jsp" %>
             
-            
+            <c:set var="clubs" value="${requestScope.clubs}"></c:set>
             <section id='search'>
                 <form id='form-liste' action="FrontController">
                     
                     <label>No de club</label>
-                    <select name="club" id="select-club"></select>
+                    <select name="club" id="select-club">
+                        <option value=''>Aucun club choisi</option>
+                        
+                        <c:if test="${not empty clubs}">
+                            <c:forEach var="club" items="${clubs}">
+                                <option value='${club.num}'>${club.nom}</option>
+                            </c:forEach>
+                        </c:if>
+                                
+                    </select>
                     <br/>
                     
                     <label>No d'équipe</label>
@@ -50,7 +59,7 @@
                     <br/>
                     
                     <input type="hidden" name="cible" value="resultat"/>
-                    <input value="Rechercher" type="submit" id="submit"/>
+                    <input value="Rechercher" type="submit" class="submit"/>
                 </form>
         
         
@@ -81,18 +90,12 @@
                             var home = $('<span class="home">' + equipeH + ' - ' + scoreH + '</span>');
                             var visiteur = $('<span class="visiteur">' + scoreV + ' - ' + equipeV + '</span>');
                             
-                            // La classe perdant n'est pas utilisée mais
-                            // pourrait l'être dans le futur.
+                           
                             if (scoreH > scoreV)
-                            {
                                 home.addClass('vainqueur');
-                                visiteur.addClass('perdant');
-                            }
+                            
                             else if (scoreV > scoreH)
-                            {
                                 visiteur.addClass('vainqueur');
-                                home.addClass('perdant');
-                            }
                              
                             var match = $('<p class="match"></p>');
                             match.append(home);
