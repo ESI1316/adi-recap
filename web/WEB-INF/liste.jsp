@@ -80,31 +80,17 @@
                             </span>
                         </c:if>
                         
-                        <script>
-
-                            var equipeH = '${equipeH}';
-                            var equipeV = '${equipeV}';
-                            var scoreH = '${scoreH}';
-                            var scoreV = '${scoreV}';
-                            var journee = '${journee}';
-                            var home = $('<span class="home">' + equipeH + ' - ' + scoreH + '</span>');
-                            var visiteur = $('<span class="visiteur">' + scoreV + ' - ' + equipeV + '</span>');
-                            
-                           
-                            if (scoreH > scoreV)
-                                home.addClass('vainqueur');
-                            
-                            else if (scoreV > scoreH)
-                                visiteur.addClass('vainqueur');
+                        <p class="match">
                              
-                            var match = $('<p class="match"></p>');
-                            match.append(home);
-                            match.append(visiteur);
+                            <span class="home ${scoreH > scoreV ? 'vainqueur' : ''}">
+                            ${equipeH} - ${scoreH}
+                            </span>
                             
-                            
-                            $('#search').append(match);
-                            
-                        </script>
+                            <span class="visiteur ${scoreV > scoreH ? 'vainqueur' : ''}">
+                                ${scoreV} - ${equipeV}
+                            </span>
+
+                        </p>
                     </c:forEach>
                 </c:if>
 
