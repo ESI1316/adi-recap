@@ -1,80 +1,51 @@
 $(function() {
     
-    var $rencontres = $('#rencontres');
-    var $equipeH = $('#id-home');
-    var $equipeV = $('#id-visiteur');
+    var $clubH   = $('#select-club-home');
+    var $clubV   = $('#select-club-visiteur');
+    var $equipeH = $('#select-equipe-home');
+    var $equipeV = $('#select-equipe-visiteur');
     var $scoreH = $('#score-home');
     var $scoreV = $('#score-visiteur');
     var $journee = $('#journee');
+    var $datePrevue = $('#datePrevue');
+    var $dateReelle = $('#dateReelle');
     
-    var rencontresTab = [];
-    var nbRencontres = 0;
-    
-    // PAS FINI
-    $('#add-rencontre').on('click', function() 
-    {
+    $('#save').on('click', function() {
+          
         if ($('#form-encodage').valid())
         {
-        
-            var uneRencontre = {
+            var rencontre = {
 
-                equipeH: { 
-                    numero: $equipeH.val()
-                },
-                equipeV: {
-                    numero: $equipeV.val()
-                },
-                datePrevue: {
-
-                },
-                dateReelle: {
-
-                },
-                journee: $journee.val(),
-                scoreH: $scoreH.val(),
-                scoreV: $scoreV.val()
+                    clubH: { 
+                        numero: $clubH.val(),
+                        nom: $clubH.text()
+                    },
+                    clubV: {
+                        numero: $clubV.val(),
+                        nom: $clubV.text()
+                    },
+                    equipeH: $equipeH.val(),
+                    equipeV: $equipeV.val(),
+                    datePrevue: $datePrevue.val(),
+                    dateReelle: $dateReelle.val(),
+                    journee: $journee.val(),
+                    scoreH: $scoreH.val(),
+                    scoreV: $scoreV.val()
             };
 
+            $.ajax({
+               type: 'POST',
+               url: 'FrontController?cible=encodage',
+               data: {rencontre:rencontre},
+               success: function() {
+                   // Afficher message de succès.
+               },
+               error: function()
+               {
+                   // Afficher message d'erreur
+               }
 
-            rencontresTab[nbRencontres] = uneRencontre;
-            addRencontre(rencontresTab[nbRencontres]);
-            nbRencontres++;
-        
+           });
         }
     });
-    
-    $('#add-all').on('click', function() {
-       
-       alert(JSON.stringify(rencontresTab));
-       
-       $.ajax({
-           type: 'POST',
-           url: 'FrontController?cible=encodage',
-           data: {rencontres:JSON.stringify(rencontresTab)},
-           success: clearRencontres,
-           error: function()
-           {
-               alert('Erreur !');
-           }
-           
-       });
-    });
-    
-    $('#cancel').on('click', clearRencontres);
-    
-    function clearRencontres()
-    {
-        $rencontres.empty();
-        rencontresTab = new Array();
-        nbRencontres = 0;
-    }
-    
-    function addRencontre(r)
-    {
-        $rencontres.append('<li class="rencontre"> Equipe HOME : ' + r.equipeH + ' - Score HOME : ' 
-                            + r.scoreH + '    - Score VISITEUR :  '
-                            + r.scoreV + ' - Equipe Visiteur : ' + r.equipeV);
-    }
-    
-  
 });

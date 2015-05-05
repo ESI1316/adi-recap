@@ -24,3 +24,21 @@
 {
     margin-left: 0;
 }
+
+.error
+{
+}
+
+#save
+{
+    margin-top: 20px;
+    margin-left: 185px;
+}
+
+#not-connected
+{
+    margin-top: 100px;
+    margin-left: 200px;
+    font-size: 30px;
+    color: black;
+}

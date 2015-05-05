@@ -40,60 +40,94 @@ $(function()
         }
     });
     
+    // A finir
     $('#form-encodage').validate({
        rules: {
-           'id-home': {
+           'club-home': {
                required: true,
                number: true,
-               range: [0, 100]
+               min: 0
            },
-           'id-visiteur': {
+           'club-visiteur': {
                required: true,
                number: true,
-               range: [0, 100]
+               min: 0
+           },
+           'equipe-home': {
+               required: true,
+               number: true,
+               min: 0
+           },
+           'equipe-visiteur': {
+               required: true,
+               number: true,
+               min: 0
            },
            'score-home': {
                required: true,
                number: true,
-               range: [0, 100]
+               min: 0
            },
            'score-visiteur': {
                required: true,
                number: true,
-               range: [0, 100]
+               min: 0
            },
            journee: {
                required:true,
                number: true,
-               range: [0, 100]
+               min: 0
+           },
+           datePrevue: {
+               required: true
+           },
+           dateReelle: {
+               required: true
            }
        },
        messages: {
-           'id-home': {
+           'club-home': {
                required: 'Requis',
-               number: 'Nombre requis',
-               range: 'Nombre positif requis'
+               number: 'Requis',
+               min: 'Requis'
            },
-           'id-visiteur': {
+           'club-visiteur': {
                required: 'Requis',
-               number: 'Nombre requis',
-               range: 'Nombre positif requis'
+               number: 'Requis',
+               min: 'Requis'
+           },
+           'equipe-home': {
+               required: 'Requis',
+               number: 'Requis',
+               min: 'Requis'
+           },
+           'equipe-visiteur': {
+               required: 'Requis',
+               number: 'Requis',
+               min: 'Requis'
            },
            'score-home': {
                required: 'Requis',
                number: 'Nombre requis',
-               range: 'Nombre positif requis'
+               min: 'Nombre positif requis'
            },
            'score-visiteur': {
                required: 'Requis',
                number: 'Nombre requis',
-               range: 'Nombre positif requis'
+               min: 'Nombre positif requis'
            },
            journee: {
                required: 'Requis',
                number: 'Nombre requis',
-               range: 'Nombre positif requis'
+               min: 'Nombre positif requis'
+           },
+           datePrevue: {
+               required: 'Requis'
+           },
+           dateReelle: {
+               required: 'Requis'
            }
+           
        }
     });
 });

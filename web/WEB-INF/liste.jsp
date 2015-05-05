@@ -33,7 +33,7 @@
                 <form id='form-liste' action="FrontController">
                     
                     <label>No de club</label>
-                    <select name="club" id="select-club">
+                    <select id='select-club' name="club" class="select-club">
                         <option value=''>Aucun club choisi</option>
                         
                         <c:if test="${not empty clubs}">
@@ -46,7 +46,7 @@
                     <br/>
                     
                     <label>No d'équipe</label>
-                    <select name="equipe" id="select-equipe"></select>
+                    <select id='select-equipe' name="equipe" class="select-equipe"></select>
                     <br/>
                     
                     <label>No de journée</label>
@@ -66,6 +66,7 @@
                 <c:set var="i" value ="${0}"></c:set>
                 <c:if test="${not empty requestScope.rc}">
                     <c:forEach var="rencontre" items="${requestScope.rc}">
+                        
                         <c:set var="scoreH" value="${rencontre.scoreH}"></c:set>
                         <c:set var="scoreV" value="${rencontre.scoreV}"></c:set>
                         <c:set var="equipeH" value="${rencontre.equipeHome}"></c:set>
@@ -81,16 +82,15 @@
                         </c:if>
                         
                         <p class="match">
-                             
                             <span class="home ${scoreH > scoreV ? 'vainqueur' : ''}">
-                            ${equipeH} - ${scoreH}
+                                ${equipeH} - ${scoreH}
                             </span>
                             
                             <span class="visiteur ${scoreV > scoreH ? 'vainqueur' : ''}">
                                 ${scoreV} - ${equipeV}
                             </span>
-
                         </p>
+                        
                     </c:forEach>
                 </c:if>
 

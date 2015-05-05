@@ -2,18 +2,16 @@ package servlet;
 
 import business.BLException;
 import dto.ClubDto;
-import dto.RencontreDto;
+import dto.EquipeDto;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  */
@@ -39,33 +37,29 @@ public class FrontController extends HttpServlet {
         
         if (cible != null) 
         {
-            if (cible.equals("resultat")) 
-            {
-                page = visuResultat(request, response);
-            } 
-            else 
-            {
-                switch (cible) {
-                    case "connexion":
-                        page = ident(request, response);
-                        break;
-                        
-                    case "deconnexion":
-                        page = "WEB-INF/ident.jsp";
-                        request.getSession().removeAttribute("connected");
-                        break;
-                        
-                    case "encodage":
-                        page = encodage(request, response);
-                        break;
-                        
-                    default:
-                        request.setAttribute("Cible", request.getParameter("cible"));
-                        page = "WEB-INF/CulDeSac.jsp";
-                        break;
-                }
+            switch (cible) {
+                case "resultat":
+                    page = visuResultat(request, response);
+                    break;
+                case "connexion":
+                    page = ident(request, response);
+                    break;
+
+                case "deconnexion":
+                    page = "WEB-INF/ident.jsp";
+                    request.getSession().removeAttribute("connected");
+                    request.getSession().removeAttribute("password");
+                    break;
+
+                case "encodage":
+                    page = encodage(request, response);
+                    break;
+
+                default:
+                    request.setAttribute("Cible", request.getParameter("cible"));
+                    page = "WEB-INF/CulDeSac.jsp";
+                    break;
             }
-            
         } 
         else
         {
@@ -77,30 +71,22 @@ public class FrontController extends HttpServlet {
     
     private String encodage(HttpServletRequest request, HttpServletResponse response)
     {
-        String rencontres = request.getParameter("rencontres");
+        try {
+            setClubsAttribute(request);
+        } catch (BLException ex) {
+            return handleError(request, ex.getMessage());
+        }
+        
+        String rencontreStr = request.getParameter("rencontre");
+        String journeeStr = request.getParameter("journee");
+        String scoreHStr = request.getParameter("scoreH");
+        String scoreVStr = request.getParameter("scoreV");
         
         
-        if (rencontres != null && !rencontres.isEmpty())
-        {
-            ArrayList<RencontreDto> list = new ArrayList();
-            try {
-                JSONArray json = new JSONArray(rencontres);
+        // Rencontre : id, equipeH, equipeV, datePrevue, journee, scoreH, scoreV, dateReelle
+        // Equipe : Club, (num?)
+        // Club : numéro, nom, password
 
-                for (int i = 0; i < json.length(); ++i)
-                {
-                    JSONObject object = json.getJSONObject(i);
-                    // PAS FINI
-                    //Faire la meme chose avec les autres attributs
-                    int equipeH = object.getInt("equipeH");
-                    int equipeV = object.getInt("equipeV");
-                    int scoreH = object.getInt("scoreH");
-                    int scoreV = object.getInt("scoreV");
-                    // Créer une liste de rencontre
-                }
-
-            } catch (JSONException ex) {}
-        } 
-       
         
         
         return "WEB-INF/encodage.jsp";
@@ -127,6 +113,7 @@ public class FrontController extends HttpServlet {
                     throw new BLException("Identifiants invalides");
                 
                 request.getSession().setAttribute("connected", clubStr);
+                request.getSession().setAttribute("password", passwd);
                 
             } catch (BLException ex) {
                 
@@ -135,6 +122,12 @@ public class FrontController extends HttpServlet {
             
         }
         return "WEB-INF/ident.jsp";
+    }
+    
+    private void setClubsAttribute(HttpServletRequest request) throws BLException
+    {
+        Collection<ClubDto> liste = business.EncodageBL.getAllClubs();
+        request.setAttribute("clubs", liste);
     }
 
     /**
@@ -147,17 +140,13 @@ public class FrontController extends HttpServlet {
     private String visuResultat(HttpServletRequest request, HttpServletResponse response) {
         
         String page = "WEB-INF/liste.jsp";
-        Collection<ClubDto> liste;
-        try 
-        {
-            liste = business.EncodageBL.getAllClubs();
-            request.setAttribute("clubs", liste);
-        } 
-        catch (BLException ex) 
-        {
-            page = handleError(request, response, ex.getMessage());
-            return page;
+        
+        try {
+            setClubsAttribute(request);
+        } catch (BLException ex) {
+            return handleError(request, ex.getMessage());
         }
+        
         
         String clubStr = request.getParameter("club");
         String equipeStr = request.getParameter("equipe");
@@ -187,7 +176,7 @@ public class FrontController extends HttpServlet {
             } 
             catch (BLException ex) 
             {
-                page = handleError(request, response, ex.getMessage());
+                page = handleError(request, ex.getMessage());
             }
 
         }
@@ -195,7 +184,7 @@ public class FrontController extends HttpServlet {
         return page;
     }
     
-    private String handleError(HttpServletRequest request, HttpServletResponse response, String msg)
+    private String handleError(HttpServletRequest request, String msg)
     {
         request.setAttribute("msg", msg);
         return "WEB-INF/error.jsp";

@@ -48,7 +48,7 @@
                 
                 </c:when>
                 <c:otherwise>
-                    <a id="deconnexion-button" href="FrontController?cible=deconnexion">Se déconnecter</a>
+                    <a id="deconnexion-button" href="FrontController?cible=deconnexion">Se d&eacute;connecter</a>
                 </c:otherwise>
                 </c:choose>
             </section>

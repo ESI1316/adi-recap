@@ -1,30 +1,51 @@
 $(function() {
     
-    var $club = $('#select-club');
-    var $equipe = $('#select-equipe');
+    var $clubs = $('.select-club');
     
-    function updateEquipe()
+    // clubId est le club ayant changé.
+    function updateEquipe(clubId)
     {
-        $equipe.empty();
-        $equipe.append("<option value=''>Aucune équipe choisie</option>");
+        // La valeur du club.
+        var clubValue = $('#'+clubId).val();
+        
+        // On cherche l'équipe correspondant au club
+        // Voir balise html dans encodage.jsp pour mieux comprendre
+        var equipeId = '#select-equipe';
+        var tab = clubId.split('-');
+        if (tab.length === 3)
+            equipeId +=  '-' + tab[2];
+        
+        // On vide la combobox de l'équipe avant de la remplir
+        $(equipeId).empty();
+        $(equipeId).append("<option value=''>Aucune équipe choisie</option>");
         
         $.ajax({
           url: 'UpdateServlet?cible=equipe',
           type: 'get',
           dataType: 'json',
-          data: {club:$club.val()},
+          data: {club:clubValue},
           success: function(json)
           {
               $.each(json, function(i, equipe) 
               {
-                  $equipe.append("<option value='" + equipe.num
+                    $(equipeId).append("<option value='" + equipe.num
                         + "' >" + equipe.club.nom + " (" + equipe.num +")" + "</option>");
               });
           }
         });
     }
     
-    $('#select-club').on('change', updateEquipe);
+    // onchange event
+    $clubs.on('change', function()
+    {
+        updateEquipe($(this).attr('id'));
+    });
 
-    updateEquipe();
+   
+    // Initialisation au chargement de la page
+    $.each($clubs, function(key, club) {
+        updateEquipe(club.id); 
+    });
+   
+    
 });
