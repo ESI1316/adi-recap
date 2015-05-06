@@ -1,6 +1,5 @@
 
 <%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="javax.swing.JOptionPane"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,8 +13,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
         <script src="js/verification.js"></script>
-        <script src="js/encodage.js"></script>
         <script src="js/autoload.js"></script>
+        <script src="js/encodage.js"></script>
         <title>Encodage</title>
     </head>
     <body>
@@ -28,12 +27,12 @@
             
             <c:set var="clubs" value="${requestScope.clubs}"></c:set>
           
-            <section id='encodage' action='FrontController'>
+            <section id='encodage'>
             <c:choose>  
                 <c:when test="${not empty sessionScope.connected}">
-                    <form id='form-encodage'>
+                    <form id='form-encodage' action='FrontController'>
 
-                        <label>Club home</label>
+                        <label for="club-home">Club home</label>
                         <select id='select-club-home' class="select-club" name="club-home">
                             <option value=''>Aucun club choisi</option>
 
@@ -45,11 +44,11 @@
                         </select>
                         <br/>
 
-                        <label>Equipe HOME</label>
+                        <label for="equipe-home">Equipe HOME</label>
                         <select id='select-equipe-home' name="equipe-home" class="select-equipe"></select>
                         <br/>
 
-                        <label>Score HOME</label>
+                        <label for="score-home">Score HOME</label>
                         <input type='number' name='score-home' id='score-home'/>
                         <br/>
 
@@ -85,7 +84,7 @@
                         <input type='number' name='journee' id='journee'/>
                         <br/>
                         
-                        <input type='hidden' cible='encodage'/>
+                        <input type='hidden' name='cible' value='encodage'/>
                         <input type='submit' id='save' value='Enregistrer' />
                     </form>
                 </c:when>
@@ -93,6 +92,11 @@
                     <p id='not-connected'>Vous n'&ecirc;tes pas connect&eacute; !</p>
                 </c:otherwise>
             </c:choose>
+                    
+            <c:if test="${not empty requestScope.result}">
+                <p>${requestScope.result}</p>
+            </c:if>
+            
             </section>
         </div>
         <%@ include file="/WEB-INF/footer.jsp" %>
