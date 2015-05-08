@@ -49,10 +49,10 @@
                         <br/>
 
                         <label for="score-home">Score HOME</label>
-                        <input type='number' name='score-home' id='score-home'/>
+                        <input type='number' name='score-home'/>
                         <br/>
 
-                        <label>Club visiteur</label>
+                        <label for="club-visiteur">Club visiteur</label>
                         <select id='select-club-visiteur' class="select-club" name="club-visiteur">
                             <option value=''>Aucun club choisi</option>
 
@@ -64,28 +64,28 @@
                         </select>
                         <br/>
 
-                        <label>Equipe visiteur</label>
+                        <label for="equipe-visiteur">Equipe visiteur</label>
                         <select id='select-equipe-visiteur' name="equipe-visiteur" class="select-equipe"></select>
                         <br/>
 
-                        <label>Score Visiteur</label>
-                        <input type='number' name='score-visiteur' id='score-visiteur'/>
+                        <label for="score-visiteur">Score Visiteur</label>
+                        <input type='number' name='score-visiteur'/>
                         <br/>
 
-                        <label>Date pr&eacute;vue (AAAA-MM-JJ)</label>
-                        <input type="date" name="datePrevue" id='datePrevue'/>
+                        <label for="datePrevue">Date pr&eacute;vue (AAAA-MM-JJ)</label>
+                        <input type="date" name="datePrevue"/>
                         <br/>
 
-                        <label>Date r&eacute;elle (AAAA-MM-JJ)</label>
-                        <input type="date" name="dateReelle" id='dateReelle'/>
+                        <label for="dateReelle">Date r&eacute;elle (AAAA-MM-JJ)</label>
+                        <input type="date" name="dateReelle"/>
                         <br/>
 
-                        <label>Journée</label>
-                        <input type='number' name='journee' id='journee'/>
+                        <label for="journee">Journée</label>
+                        <input type='number' name='journee' />
                         <br/>
                         
-                        <input type='hidden' name='cible' value='encodage'/>
-                        <input type='submit' id='save' value='Enregistrer' />
+                        <input type='hidden' name='cible' value='addRencontre'/>
+                        <button type='button' id='save'>Enregistrer</button>
                     </form>
                 </c:when>
                 <c:otherwise>
@@ -93,9 +93,10 @@
                 </c:otherwise>
             </c:choose>
                     
-            <c:if test="${not empty requestScope.result}">
-                <p>${requestScope.result}</p>
-            </c:if>
+            <p id='rc'>
+
+
+            </p>
             
             </section>
         </div>

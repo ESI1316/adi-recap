@@ -12,12 +12,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  */
@@ -39,7 +44,7 @@ public class FrontController extends HttpServlet {
         
         
         String cible = request.getParameter("cible");
-        String page;
+        String page = "";
         
         if (cible != null) 
         {
@@ -47,6 +52,7 @@ public class FrontController extends HttpServlet {
                 case "resultat":
                     page = visuResultat(request, response);
                     break;
+                    
                 case "connexion":
                     page = ident(request, response);
                     break;
@@ -60,10 +66,19 @@ public class FrontController extends HttpServlet {
                 case "encodage":
                     page = encodage(request, response);
                     break;
+                    
+                case "addRencontre":
+            {
+                try {
+                    addRencontre(request, response);
+                } catch (JSONException ex) {
+                    page = handleError(request, ex.getMessage());
+                }
+            }
+                    break;
 
                 default:
-                    request.setAttribute("Cible", request.getParameter("cible"));
-                    page = "WEB-INF/CulDeSac.jsp";
+                    page = "WEB-INF/Accueil.jsp";
                     break;
             }
         } 
@@ -71,17 +86,18 @@ public class FrontController extends HttpServlet {
         {
             page = "WEB-INF/Accueil.jsp";
         }
-        
-        request.getRequestDispatcher(page).forward(request, response);
+       
+        if (!page.isEmpty())
+            request.getRequestDispatcher(page).forward(request, response);
     }
     
-    private String encodage(HttpServletRequest request, HttpServletResponse response) throws IOException 
+    
+    private void addRencontre(HttpServletRequest request,
+            HttpServletResponse response) throws
+            IOException, JSONException
     {
-        try {
-            setClubsAttribute(request);
-        } catch (BLException ex) {
-            return handleError(request, ex.getMessage());
-        }
+       
+        String message;
         
         String journeeStr = request.getParameter("journee");
         String scoreHStr = request.getParameter("score-home");
@@ -96,100 +112,56 @@ public class FrontController extends HttpServlet {
         String clubVNomStr = request.getParameter("nomClubV");
         String password = (String) request.getSession().getAttribute("password");
         
-        if (isNotNull(journeeStr)    && isNotNull(scoreHStr) && 
-            isNotNull(scoreVStr)     && isNotNull(datePrevueStr) &&
-            isNotNull(dateReelleStr) && isNotNull(equipeHStr) && 
-            isNotNull(equipeVStr)    && isNotNull(clubHNomStr) &&
-            isNotNull(clubHNumStr)   && isNotNull(clubVNumStr) &&
-            isNotNull(clubVNomStr))
+         
+        if (exists(journeeStr)    && exists(scoreHStr) && 
+            exists(scoreVStr)     && exists(datePrevueStr) &&
+            exists(dateReelleStr) && exists(equipeHStr) && 
+            exists(equipeVStr)    && exists(clubHNomStr) &&
+            exists(clubHNumStr)   && exists(clubVNumStr) &&
+            exists(clubVNomStr))
         {
             try 
             {
                 StringBuilder errorMsg = new StringBuilder();
-                int journee = 0, scoreH = 0, scoreV = 0,
-                    equipeH = 0, equipeV = 0, clubHNum = 0, clubVNum = 0;
-                try 
-                {
-                    journee = Integer.parseInt(journeeStr);
-                    if (journee < 1)
-                        errorMsg.append("La journée doit être strictement positive\n");
-                } 
-                catch (NumberFormatException nfe)
-                {
-                    errorMsg.append("La journée n'est pas un nombre\n");
-                }
-                try 
-                {
-                    scoreH = Integer.parseInt(scoreHStr); 
-                    if (scoreH < 1)
-                        errorMsg.append("Le score (home) doit être strictement positif\n");
-                } 
-                catch (NumberFormatException nfe)
-                {
-                    errorMsg.append("Le score (home) n'est pas un nombre\n");
-                }
+                int journee, scoreH, scoreV,
+                    equipeH, equipeV, clubHNum, clubVNum;
                 
-                try
-                {
-                    scoreV = Integer.parseInt(scoreVStr); 
-                    if (scoreV < 1)
-                        errorMsg.append("Le score (visiteur) doit être strictement positif\n");
-                } 
-                catch (NumberFormatException nfe)
-                {
-                    errorMsg.append("Le score (visiteur) n'est pas un nombre\n");
-                }
+                journee = parse(journeeStr, errorMsg);
+                if (journee < 1)
+                    errorMsg.append("La journée doit être strictement positive\n");
+
+
+                scoreH = parse(scoreHStr, errorMsg); 
+                if (scoreH < 1)
+                    errorMsg.append("Le score (home) doit être strictement positif\n");
+               
+                scoreV = parse(scoreVStr, errorMsg); 
+                if (scoreV < 1)
+                    errorMsg.append("Le score (visiteur) doit être strictement positif\n");
+
+
+                equipeH = parse(equipeHStr, errorMsg);
+                if (equipeH < 0)
+                    errorMsg.append("L'id de l'équipe (home) doit être plus grand que zéro\n");
+
+                equipeV = parse(equipeVStr, errorMsg);
+                if (equipeV < 0)
+                    errorMsg.append("L'id de l'équipe (visiteur) doit être plus grand que zéro\n");
+
+                clubHNum = parse(clubHNumStr, errorMsg);
+                if (clubHNum < 0)
+                    errorMsg.append("L'id du club (home) doit être plus grand que zéro\n");
+
                 
-                try 
-                {
-                    equipeH = Integer.parseInt(equipeHStr);
-                    if (equipeH < 0)
-                        errorMsg.append("L'id de l'équipe (home) doit être plus grand que zéro\n");
-                } 
-                catch (NumberFormatException nfe)
-                {
-                    errorMsg.append("L'équipe (home) n'est pas un nombre\n");
-                }
-                
-                try 
-                {
-                    equipeV = Integer.parseInt(equipeVStr);
-                    if (equipeV < 0)
-                        errorMsg.append("L'id de l'équipe (visiteur) doit être plus grand que zéro\n");
-                } 
-                catch (NumberFormatException nfe)
-                {
-                    errorMsg.append("L'équipe (visiteur) n'est pas un nombre\n");
-                }
-                
-                try 
-                {
-                    clubHNum = Integer.parseInt(clubHNumStr);
-                    if (clubHNum < 0)
-                        errorMsg.append("L'id du club (home) doit être plus grand que zéro\n");
-                } 
-                catch (NumberFormatException nfe)
-                {
-                    errorMsg.append("Le numéro du club (home) n'est pas un nombre\n");
-                }
-                    
-                    
-                try
-                {
-                    clubVNum = Integer.parseInt(clubVNumStr);
-                    if (clubVNum < 0)
-                        errorMsg.append("L'id du club (visiteur) doit être plus grand que zéro\n");
-                } 
-                catch (NumberFormatException nfe)
-                {
-                    errorMsg.append("Le numéro du club (visiteur) n'est pas un nombre\n");
-                }
-                
+                clubVNum = parse(clubVNumStr, errorMsg);
+                if (clubVNum < 0)
+                    errorMsg.append("L'id du club (visiteur) doit être plus grand que zéro\n");
+          
                 
                 Date datePrevue = null, dateReelle = null;
                 try 
                 {
-                    DateFormat df = new SimpleDateFormat ("yyyy-MM-dd");
+                    DateFormat df = new SimpleDateFormat ("YYYY-MM-DD");
                     datePrevue = df.parse(datePrevueStr);
                     dateReelle = df.parse(dateReelleStr);
                 }
@@ -206,6 +178,7 @@ public class FrontController extends HttpServlet {
                 {
                    // Est-ce bien le password qu'on passe en paramètre ?
                    // Non précisé dans la doc
+                   // Lance "non identifié"
                    ClubDto clubH =  new ClubDto(clubHNum, clubHNomStr, password);
                    ClubDto clubV = new ClubDto(clubVNum, clubVNomStr, password);
                    EquipeDto equipeHDto = new EquipeDto(clubH, equipeH);
@@ -217,17 +190,57 @@ public class FrontController extends HttpServlet {
                    list.add(rencontre);
                    business.EncodageBL.setRencontres(list); 
                    
+                   message = "Rencontre ajoutée avec succès";
                 }
             }
             catch (BLException ex) 
             {
+                message = "Impossible d'ajouter la rencontre ! : " + ex.getMessage();
+               
             }
             
+            
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            JSONObject obj = new JSONObject();
+            obj.accumulate("message", message);
+            response.getWriter().write(obj.toString());
+            
         }
-        return "WEB-INF/encodage.jsp";
     }
     
-    private boolean isNotNull(String s)
+    
+    private String encodage(HttpServletRequest request, HttpServletResponse response) 
+            throws IOException
+    {
+        String page = "WEB-INF/encodage.jsp";
+        
+        try {
+            setClubsAttribute(request);
+        } catch (BLException ex) {
+            page = handleError(request, ex.getMessage());
+        }
+       
+        return page;
+    }
+    
+    private int parse(String s, StringBuilder error)
+    {
+        int result = 0;
+        
+        try 
+        {
+            result =  Integer.parseInt(s);
+        }
+        catch (NumberFormatException e)
+        {
+            error.append("Erreur parsing");
+        }
+        
+        return result;
+    }
+    
+    private boolean exists(String s)
     {
        return s != null && !s.isEmpty();
     }

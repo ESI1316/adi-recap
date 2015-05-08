@@ -42,3 +42,11 @@
     font-size: 30px;
     color: black;
 }
+
+#rc
+{
+    margin-top: 20px;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}

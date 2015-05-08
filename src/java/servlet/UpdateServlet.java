@@ -31,8 +31,6 @@ public class UpdateServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         
-        String cible = request.getParameter("cible");
-        
         Collection<dto.EquipeDto> equipes = updateEquipe(request, response);
         
         JSONArray array = new JSONArray(equipes);
