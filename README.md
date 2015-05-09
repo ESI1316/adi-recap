@@ -56,7 +56,7 @@ TODO
 Exemple : 
 
 ```JSP
-<c:set var="col" value="${requestScope.collection"></c:set> <!-- set a collection from requestScope -->
+<c:set var="col" value="${requestScope.collection}"></c:set> <!-- set a collection from requestScope -->
 <c:if test="${not empty col}"> <!-- Test if col is not empty (or exists) -->
   statements
 </c:if>
