@@ -53,7 +53,7 @@ TODO
 </c:if>
 ```
 
-Exemple : 
+Example : 
 
 ```JSP
 <c:set var="col" value="${requestScope.collection}"></c:set> <!-- set a collection from requestScope -->
@@ -61,4 +61,43 @@ Exemple :
   statements
 </c:if>
 
+```
+
+### choose statement
+
+```JSP
+<c:choose>
+  <!-- if -->
+  <c:when test="${test1}"> 
+    statements
+  </c:when>
+  
+  <!-- else if -->
+  <c:when test="${test2}">
+    statements
+  </c:when>
+  
+  <!-- else -->
+  <c:otherwise>
+    statements
+  </c:otherwise>
+  
+</c:choose>
+```
+
+### out statement
+
+```JSP
+<c:out value="${valToDisplay}"><c:out> <!-- Display valToDisplay -->
+```
+ 
+### forEach statement
+
+```JSP
+<c:forEach var="oneItem" varStatus="i" begin="${1}" items="${collection}">
+  <!-- Everything is optional -->
+  <!-- varStatus : count variable : ${i.count} to access i value / ${i.index} to access i index (loop index) -->
+  <!-- end="${value}" to set the ending value of varStatus -->
+  <!-- When varStatus = end, the loops ends -->
+</c:forEach>
 ```
