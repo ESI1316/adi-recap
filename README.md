@@ -140,9 +140,27 @@ public class MyClass
 
 ### Create variable
 
+You can create variables using the set statement. You can also specify the scope of the variable :
+* page (default if not specified)
+* request
+* session
+* application
+
 ```JSP
-<c:set var="varName" value="varValue"></c:set>
+<c:set var="varName" value="${varValue}" scope="page"></c:set>
+<c:set var="varName2" >${varValue}</c:set> <!-- Also works -->
+
 ```
+
+### Delete variable
+
+You can remove variables using the remove statement. You can also specify the scope. If you don't specify the scope, the statement will remove a variable in the first scope where the variable is found.
+
+```JSP
+<c:remove var="varName" scope="page" /> <!-- You can't access varName anymore -->
+```
+
+**There is no really need to remove variable**
 
 ### if statement
 
@@ -186,11 +204,14 @@ Example :
 
 ### out statement
 
+out statement is similar to JSP Java Expression <%= %> but is simpler to use.
+
 ```JSP
 <c:out value="${valToDisplay}"><c:out> <!-- Display valToDisplay -->
 ```
  
 ### forEach statement
+
 
 ```JSP
 <c:forEach var="oneItem" varStatus="i" begin="${1}" items="${collection}">
@@ -198,5 +219,7 @@ Example :
   <!-- varStatus : count variable : ${i.count} to access i value / ${i.index} to access i index (loop index) -->
   <!-- end="${value}" to set the ending value of varStatus -->
   <!-- When varStatus = end, the loops ends -->
+  <!-- You can also specify a step parameter. step is the incrementation number for varStatus -->
+  <!-- Two boolean values are available for varStatus : first and last (true if first element, or last one )-->
 </c:forEach>
 ```
