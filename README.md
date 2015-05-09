@@ -20,10 +20,57 @@ JSONArray array = new JSONArray(col);
 String json = array.toString(); // Serialize col to json
 ```
 
-## JSP Include
+## JSP
+
+### JSP File Include
 
 ```JSP
 <%@ include file="yourPath" %>
+```
+
+### Java in your JSP
+
+We can use Java in our JSP files but it is not recommended. *Use JSTL instead.* 
+
+### JSP Directive
+
+The line to include your JSP is a directive. A directive is delimited by <%@ and %>
+
+We can also import a Java package for example :
+
+```JSP
+<%@ page import="java.io.*" %>
+```
+
+To include the JSTL, we also use a directive (see JSTL).
+
+### Expression
+
+An expression is delimited by <%= and %>. 
+
+```JSP
+<%= new Date() %> <!-- Prints courant date -->
+```
+
+### Declaration 
+
+A decleration is delimited by <%! and %>.
+
+```JSP 
+<%! Date myDate = new Date(); %>
+```
+
+You can now access the variable myDate.
+
+### Scriptlet
+
+A scriplet is a Java code fragment (delimited by <% and %>. For example, a loop to print 10 times "Hello World !" :
+
+```JSP
+<% for (int i = 0; i < 10; ++i) 
+   { %>
+   Hello World !
+<% } %>
 ```
 
 ## Expression Language
@@ -83,11 +130,13 @@ public class MyClass
 
 ## JSTL
 
-### Import JSTL
+### Include JSTL
 
 ```JSP
 <%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 ```
+
+* A library (.jar) is needed ! * (See netbeans libraries)
 
 ### Create variable
 
