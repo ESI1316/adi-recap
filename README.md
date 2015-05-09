@@ -30,7 +30,7 @@ String json = array.toString(); // Serialize col to json
 
 ### Java in your JSP
 
-We can use Java in our JSP files but it is not recommended. *Use JSTL instead.* 
+We can use Java in our JSP files but it is not recommended. **Use JSTL instead** . 
 
 ### JSP Directive
 
@@ -136,7 +136,7 @@ public class MyClass
 <%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 ```
 
-* A library (.jar) is needed ! * (See netbeans libraries)
+**A library (.jar) is also needed !** (See netbeans libraries)
 
 ### Create variable
 
