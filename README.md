@@ -1,5 +1,4 @@
 # adi-recap
-ESI - Exercice récapitulatif d'ADI.
 
 ## Library GSON (Google) 
 
@@ -29,7 +28,58 @@ String json = array.toString(); // Serialize col to json
 
 ## Expression Language
 
-TODO
+Allows you to access variables, parameters... without Java code.
+
+### Syntax :
+
+```JSP
+"${expression}"
+```
+
+### Scopes :
+
+```JSP
+"${requestScope.parameter}" <!-- Access parameter from request -->
+"${sessionScope.parameter}" <!-- Access parameter from session -->
+```
+
+### Access object variables (getters are needed)
+
+```JAVA
+public class MyClass
+{
+  private int property1;
+  private int property2;
+  
+  public MyClass(int property1, int property2)
+  {
+    this.property1 = p1;
+    this.property2 = p2;
+  }
+  
+  public int getProperty1()
+  {
+    return this.property1;
+  }
+}
+```
+
+```JSP
+"${requestScope.myClassObject.property1}" <!-- Access property1 -->
+"${requestScope.myClassObject.property2}" <!-- Does not work ! No getter for property2 -->
+```
+
+### Conditions
+
+```JSP
+  "${1 < 2}" <!-- Returns true -->
+  "${empty collection}" <!-- Returns true if collection is empty or does not exist -->
+  "${not empty collection}" <!-- Returns true if collection is not empty or exists -->
+  "${a == b}" <!-- Returns true if a equals b -->
+  "${a < b ? a : b}" <!-- Returns a if a is lesser than b, b otherwise -->
+  <!-- || and && and ! etc. can also be used -->
+```
+
 
 ## JSTL
 
