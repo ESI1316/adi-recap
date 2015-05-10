@@ -49,7 +49,7 @@ To include the JSTL, we also use a directive (see JSTL).
 An expression is delimited by <%= and %>. 
 
 ```JSP
-<%= new Date() %> <!-- Prints courant date -->
+<%= new Date() %> <!-- Prints current date -->
 ```
 
 ### Declaration 
