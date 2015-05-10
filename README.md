@@ -254,7 +254,8 @@ Example :
 
 ```JAVASCRIPT
 $.ajax({
-          url: 'UpdateServlet?cible=equipe',
+          url: 'UpdateServlet?cible=equipe', // Request sent to UpdateServlet
+                                             // with parameter cible of value equipe
           type: 'GET',            // Get data
           dataType: 'JSON',       // Returns JSON
           data: {club:clubValue}, // Pass parameter with name of club and value of clubValue
@@ -267,4 +268,19 @@ $.ajax({
               });
           }
       });
+```
+
+On server side : 
+
+```JAVA
+// Set response type to json, and encoding to utf-8
+response.setContentType("application/json");
+response.setCharacterEncoding("utf-8");
+
+// updateEquipe returns a collection from the model
+Collection<dto.EquipeDto> equipes = updateEquipe(request, response);
+
+// With the JSON-simple library, we serialize the collection to json
+JSONArray array = new JSONArray(equipes);
+response.getWriter().write(array.toString()); // Writes the results
 ```
