@@ -270,7 +270,7 @@ $.ajax({
       });
 ```
 
-On server side : 
+On server side (Servlet UpdateServlet) : 
 
 ```JAVA
 // Set response type to json, and encoding to utf-8
@@ -284,3 +284,6 @@ Collection<dto.EquipeDto> equipes = updateEquipe(request, response);
 JSONArray array = new JSONArray(equipes);
 response.getWriter().write(array.toString()); // Writes the results
 ```
+
+To access a servlet, the url is not always the servlet name. You can change the url of the servlet
+in the web.xml file.
