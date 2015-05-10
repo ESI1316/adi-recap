@@ -223,3 +223,41 @@ out statement is similar to JSP Java Expression <%= %> but is simpler to use.
   <!-- Two boolean values are available for varStatus : first and last (true if first element, or last one )-->
 </c:forEach>
 ```
+
+## Ajax 
+
+```JAVASCRIPT
+$.ajax({
+   type: "requestType",    // POST, GET, etc.
+   url: "yourUrl",         // The url
+   data: variable,         // The data you pass to the server (url)
+   dataType: 'json',       // Returns JSON
+   success: function(json) // No need to parse json with JSON.parse(json) if dataType: 'json' is specified
+   {
+      // Statements if ajax succeeds
+   }
+   error: function()
+   {
+      // Statements if ajax fails
+   }
+});
+```
+
+Example :
+
+```JAVASCRIPT
+$.ajax({
+          url: 'UpdateServlet?cible=equipe',
+          type: 'GET',            // Get data
+          dataType: 'JSON',       // Returns JSON
+          data: {club:clubValue}, // Pass parameter with name of club and value of clubValue
+          success: function(json)
+          {
+              $.each(json, function(i, equipe) // For each object of the array contained in the json string
+              {
+                    $(equipeId).append("<option value='" + equipe.num
+                        + "' >" + equipe.club.nom + " (" + equipe.num +")" + "</option>");
+              });
+          }
+      });
+```
