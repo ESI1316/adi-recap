@@ -226,9 +226,16 @@ out statement is similar to JSP Java Expression <%= %> but is simpler to use.
 
 ## Ajax 
 
+Four type for the HTTP request :
+
+* GET returns data.
+* POST adds data.
+* PUT updates data.
+* DELETE deletes data.
+
 ```JAVASCRIPT
 $.ajax({
-   type: "requestType",    // POST, GET, etc.
+   type: "requestType",    // POST, GET, PUT, DELETE.
    url: "yourUrl",         // The url
    data: variable,         // The data you pass to the server (url)
    dataType: 'json',       // Returns JSON
