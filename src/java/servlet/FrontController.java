@@ -166,7 +166,6 @@ public class FrontController extends HttpServlet {
                 {
                    // Est-ce bien le password qu'on passe en paramètre ?
                    // Non précisé dans la doc
-                   // Lance "non identifié"
                    ClubDto clubH = (ClubDto) request.getSession().getAttribute("connectedClub");
                    ClubDto clubV = new ClubDto(clubVNum, clubVNomStr, password);
                    EquipeDto equipeHDto = new EquipeDto(clubH, equipeH);
@@ -199,7 +198,7 @@ public class FrontController extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             JSONObject obj = new JSONObject();
-            obj.accumulate("message", message);
+            obj.put("message", message);
             response.getWriter().write(obj.toString());
             
         }
