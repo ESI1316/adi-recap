@@ -20,17 +20,18 @@
         <div id="center">
             <%@ include file="/WEB-INF/navbar.jsp" %>
             <section>
-                <p>blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
-                    blablablablablablablablablablablabla
-                    blablablablablablav
-                    blablabla
-                    blablabla
-                    blablabla
-                    vblablablablablablablablablablablablablablablablablablablablabla
-                    blablablablablablablablablablablabla
-                    bla</p>
-
-
+                <p>
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                   blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla
+                </p>
             </section>
         </div>
         <%@ include file="/WEB-INF/footer.jsp" %>

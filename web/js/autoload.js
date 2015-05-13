@@ -21,8 +21,8 @@ $(function() {
         
         $.ajax({
           url: 'UpdateServlet?cible=equipe',
-          type: 'get',
-          dataType: 'json',
+          type: 'GET',
+          dataType: 'JSON',
           data: {club:clubValue},
           success: function(json)
           {

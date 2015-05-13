@@ -1,9 +1,3 @@
-<%-- 
-    Document   : ident
-    Created on : 03-mai-2015, 17:01:00
-    Author     : zyn
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -31,7 +25,7 @@
             
             <section id='ident'>
                 <c:choose>
-                <c:when test="${empty sessionScope.connected}">
+                <c:when test="${empty sessionScope.connectedClub}">
                     
                     <c:if test="${not empty requestScope.InvalidIdent}">
                         <p id="invalid-ident">${requestScope.InvalidIdent}</p>

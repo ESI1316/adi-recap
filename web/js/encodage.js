@@ -14,6 +14,7 @@ $(function() {
                 dataString += '&nomClubH=' + $clubH.text();
           
             $.ajax({
+                
                // Si on change l'url, on la change juste
                // dans encodage.jsp
                url: $form.attr('action'),

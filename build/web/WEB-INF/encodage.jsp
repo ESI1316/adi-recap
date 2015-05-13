@@ -1,4 +1,5 @@
 
+
 <%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,18 +30,13 @@
           
             <section id='encodage'>
             <c:choose>  
-                <c:when test="${not empty sessionScope.connected}">
+                <c:when test="${not empty sessionScope.connectedClub}">
+                    <c:set var="homeClub" value="${sessionScope.connectedClub}"></c:set>
                     <form id='form-encodage' action='FrontController'>
 
                         <label for="club-home">Club home</label>
                         <select id='select-club-home' class="select-club" name="club-home">
-                            <option value=''>Aucun club choisi</option>
-
-                            <c:if test="${not empty clubs}">
-                                <c:forEach var="club" items="${clubs}">
-                                    <option value='${club.num}'>${club.nom}</option>
-                                </c:forEach>
-                            </c:if>
+                            <option value='${homeClub.num}'>${homeClub.nom}</option>
                         </select>
                         <br/>
 

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : error
-    Created on : 28-avr.-2015, 9:45:55
-    Author     : zyn
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

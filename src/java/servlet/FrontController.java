@@ -1,6 +1,7 @@
 package servlet;
 
 import business.BLException;
+import dbinit.FootDbException;
 import dto.ClubDto;
 import dto.EquipeDto;
 import dto.RencontreDto;
@@ -12,15 +13,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +39,6 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException 
     {
         
-        
         String cible = request.getParameter("cible");
         String page = "";
         
@@ -59,7 +55,7 @@ public class FrontController extends HttpServlet {
 
                 case "deconnexion":
                     page = "WEB-INF/ident.jsp";
-                    request.getSession().removeAttribute("connected");
+                    request.getSession().removeAttribute("connectedClub");
                     request.getSession().removeAttribute("password");
                     break;
 
@@ -106,8 +102,6 @@ public class FrontController extends HttpServlet {
         String dateReelleStr = request.getParameter("dateReelle"); 
         String equipeHStr = request.getParameter("equipe-home");
         String equipeVStr = request.getParameter("equipe-visiteur");
-        String clubHNumStr = request.getParameter("club-home");
-        String clubHNomStr = request.getParameter("nomClubH");
         String clubVNumStr = request.getParameter("club-visiteur");
         String clubVNomStr = request.getParameter("nomClubV");
         String password = (String) request.getSession().getAttribute("password");
@@ -116,8 +110,7 @@ public class FrontController extends HttpServlet {
         if (exists(journeeStr)    && exists(scoreHStr) && 
             exists(scoreVStr)     && exists(datePrevueStr) &&
             exists(dateReelleStr) && exists(equipeHStr) && 
-            exists(equipeVStr)    && exists(clubHNomStr) &&
-            exists(clubHNumStr)   && exists(clubVNumStr) &&
+            exists(equipeVStr)    && exists(clubVNumStr) &&
             exists(clubVNomStr))
         {
             try 
@@ -148,11 +141,6 @@ public class FrontController extends HttpServlet {
                 if (equipeV < 0)
                     errorMsg.append("L'id de l'équipe (visiteur) doit être plus grand que zéro\n");
 
-                clubHNum = parse(clubHNumStr, errorMsg);
-                if (clubHNum < 0)
-                    errorMsg.append("L'id du club (home) doit être plus grand que zéro\n");
-
-                
                 clubVNum = parse(clubVNumStr, errorMsg);
                 if (clubVNum < 0)
                     errorMsg.append("L'id du club (visiteur) doit être plus grand que zéro\n");
@@ -179,24 +167,32 @@ public class FrontController extends HttpServlet {
                    // Est-ce bien le password qu'on passe en paramètre ?
                    // Non précisé dans la doc
                    // Lance "non identifié"
-                   ClubDto clubH =  new ClubDto(clubHNum, clubHNomStr, password);
+                   ClubDto clubH = (ClubDto) request.getSession().getAttribute("connectedClub");
                    ClubDto clubV = new ClubDto(clubVNum, clubVNomStr, password);
                    EquipeDto equipeHDto = new EquipeDto(clubH, equipeH);
                    EquipeDto equipeVDto = new EquipeDto(clubV, equipeV);
-                   int id =0;
+                   
+                   // hash tout pourri
+                   int id =  datePrevue.hashCode() + 
+                             equipeVDto.hashCode() +
+                             clubH.hashCode() +
+                             clubV.hashCode() + 
+                             journee +
+                             scoreH * scoreV;
+                   
                    RencontreDto rencontre = new RencontreDto(id, equipeHDto,
                           equipeVDto, datePrevue, journee, scoreH, scoreV, dateReelle);
+                   
+                   // Ne fait rien
                    List<RencontreDto> list = new ArrayList(1);
                    list.add(rencontre);
-                   business.EncodageBL.setRencontres(list); 
-                   
+                   business.EncodageBL.setRencontres(list);
                    message = "Rencontre ajoutée avec succès";
                 }
             }
             catch (BLException ex) 
             {
                 message = "Impossible d'ajouter la rencontre ! : " + ex.getMessage();
-               
             }
             
             
@@ -256,17 +252,25 @@ public class FrontController extends HttpServlet {
     {
         String clubStr = request.getParameter("club");
         String passwd  = request.getParameter("password");
+        ClubDto club;
         
         if (clubStr != null && passwd != null)
         {
             try {
                 if (!clubStr.isEmpty()  && !passwd.isEmpty())
-                    business.EncodageBL.identification(Integer.parseInt(clubStr), passwd);
+                    club = business.EncodageBL.identification(Integer.parseInt(clubStr), passwd);
                 else
                     throw new BLException("Identifiants invalides");
                 
-                request.getSession().setAttribute("connected", clubStr);
-                request.getSession().setAttribute("password", passwd);
+                if (club != null)
+                {
+                    request.getSession().setAttribute("connectedClub", club);
+                    request.getSession().setAttribute("password", passwd);
+                }
+                else
+                {
+                    throw new BLException("Identifiants invalides");
+                }
                 
             } catch (BLException ex) {
                 
