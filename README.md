@@ -1,5 +1,12 @@
 # adi-recap
 
+## Plugin JQuery Cookie
+
+Télécharger le fichier : 
+
+https://github.com/carhartl/jquery-cookie/blob/master/src/jquery.cookie.js
+https://github.com/carhartl/jquery-cookie/ pour l'utilisation.
+
 ## Library GSON (Google) 
 
 http://search.maven.org/#artifactdetails|com.google.code.gson|gson|2.3.1|jar
