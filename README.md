@@ -5,7 +5,10 @@
 Télécharger le fichier : 
 
 https://github.com/carhartl/jquery-cookie/blob/master/src/jquery.cookie.js
-https://github.com/carhartl/jquery-cookie/ pour l'utilisation.
+
+Pour l'utilisation : 
+
+https://github.com/carhartl/jquery-cookie/ 
 
 ## Library GSON (Google) 
 
