@@ -2,7 +2,8 @@
 
 ## Gabarits CSS
 
-http://www.alsacreations.com/static/gabarits/liste.html
+* http://www.alsacreations.com/static/gabarits/liste.html
+* http://www.winpix.net/css-tutoriaux/gabarits-html-css-17.html
 
 ## Plugin JQuery Cookie
 
