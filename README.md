@@ -4,6 +4,7 @@
 
 * http://www.alsacreations.com/static/gabarits/liste.html
 * http://www.winpix.net/css-tutoriaux/gabarits-html-css-17.html
+* http://www.trucsweb.com/tutoriels/css/css-structures_fluide/
 
 ## Plugin JQuery Cookie
 
